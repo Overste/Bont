@@ -27,12 +27,27 @@ public class BonteBos : MonoBehaviour
     [SerializeField] private Image playerImage;
     private Color defaultColor = new Color(1f, 1f, 1f, 1f);
     private Color negativeColor = new Color(0.3f, 0.3f, 0.3f, 1f);
-    
+
+    private GameObject bonteBosChallengeTwoCanvas;
+    private GameObject bonteBosChallengeThreeCanvas;
+    int oneMoreCLick = 0;
+
     void Start()
     {
         enemyImage.color = negativeColor;
         positiveButton.gameObject.SetActive(false);
         negativeButton.gameObject.SetActive(false);
+        
+        bonteBosChallengeTwoCanvas = GameObject.Find("BonteBosChallengeTwoCanvas");
+        bonteBosChallengeThreeCanvas = GameObject.Find("BonteBosChallengeThreeCanvas");
+
+        bonteBosChallengeTwoCanvas.gameObject.SetActive(false);
+        bonteBosChallengeThreeCanvas.gameObject.SetActive(false);
+        
+        // CanvasHandler.DeactivateCanvas("BonteBosChallengeTwoCanvas");
+        // CanvasHandler.DeactivateCanvas("BonteBosChallengeThreeCanvas");
+        
+        // playerImage.sprite = GameManager.Instance.PlayerSprite;
         DisplayText();
     }
     
@@ -75,6 +90,14 @@ public class BonteBos : MonoBehaviour
         enemyImage.color = defaultColor;
         textMeshPro.text = positiveText.GetText();
         negativeButton.interactable = false;
+        
+        if (oneMoreCLick == 1)
+        {
+            CanvasHandler.DeactivateCanvas("BonteBosChallengeCanvas");
+            bonteBosChallengeTwoCanvas.SetActive(true);
+        }
+
+        oneMoreCLick++;
     }
     
     public void OnClickNegative()
@@ -84,5 +107,10 @@ public class BonteBos : MonoBehaviour
         textMeshPro.text = negativeText.GetText();
         positiveButton.interactable = false;
 
+        if (oneMoreCLick == 1)
+        {
+            CanvasHandler.DeactivateCanvas("BonteBosChallengeCanvas");
+            bonteBosChallengeTwoCanvas.SetActive(true);
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,41 +16,42 @@ public class BonteCastle : MonoBehaviour
     [Header("Buttons")]    
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
-    // private bool _buttonState;  
     
+    [Header("Images")]
+    [SerializeField] private Image playerImage;
+
     void Start()
     {
+        playerImage.sprite = GameManager.Instance.PlayerSprite;
+        playerImage.transform.Rotate(new Vector3( 0, 180, 0 ));
+
         DisplayText();
     }
 
-
-    void GetNextText()
-    {
-        
-    }
-    
     void DisplayText()
     {
-        Debug.Log(_correctTextIndex);
-        Debug.Log(texts);
-        _currentText = texts[_correctTextIndex];
-        textMeshPro.text = _currentText.GetText();
+        // TODO replace with await function
+        while (texts.Count != 0)
+        {
+            _currentText = texts[_correctTextIndex];
+            textMeshPro.text = _currentText.GetText();
+            return;
+        }
     }
-
-    void SetButtonState()
-    {
-        
-    }
-
+    
     public void OnClickNextText()
     {
         if (_correctTextIndex < texts.Count - 1)
         {
+            Debug.Log("true");
             _correctTextIndex++;
             DisplayText();
         }
-
-        Debug.Log("OnClickNextText");
+        else
+        {
+            Debug.Log("Called");
+            SceneHandler.LoadNextScene();
+        }
     }
 
     public void OnClickPreviousText()
@@ -59,7 +61,5 @@ public class BonteCastle : MonoBehaviour
             _correctTextIndex--;
             DisplayText();
         }
-
-        Debug.Log("OnClickPreviousText");
     }
 }
