@@ -21,8 +21,7 @@ public class BonteBosChallenge : MonoBehaviour
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
     private List<Button> buttons = new List<Button>();
-
-
+    
     [Header("Image")] 
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Image orkImage;

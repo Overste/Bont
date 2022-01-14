@@ -15,41 +15,39 @@ public class BonteCastle : MonoBehaviour
     [Header("Buttons")]    
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
-    // private bool _buttonState;  
     
     void Start()
     {
+        Debug.Log(Player.Instance.PlayersLife);
+        
+        Debug.Log(Player.Instance.PlayerImage);
         DisplayText();
     }
 
-
-    void GetNextText()
-    {
-        
-    }
-    
     void DisplayText()
     {
-        Debug.Log(_correctTextIndex);
-        Debug.Log(texts);
-        _currentText = texts[_correctTextIndex];
-        textMeshPro.text = _currentText.GetText();
+        // TODO replace with await function
+        while (texts.Count != 0)
+        {
+            _currentText = texts[_correctTextIndex];
+            textMeshPro.text = _currentText.GetText();
+            return;
+        }
     }
-
-    void SetButtonState()
-    {
-        
-    }
-
+    
     public void OnClickNextText()
     {
         if (_correctTextIndex < texts.Count - 1)
         {
+            Debug.Log("true");
             _correctTextIndex++;
             DisplayText();
         }
-
-        Debug.Log("OnClickNextText");
+        else
+        {
+            Debug.Log("Called");
+            SceneHandler.LoadNextScene();
+        }
     }
 
     public void OnClickPreviousText()
@@ -59,7 +57,5 @@ public class BonteCastle : MonoBehaviour
             _correctTextIndex--;
             DisplayText();
         }
-
-        Debug.Log("OnClickPreviousText");
     }
 }
